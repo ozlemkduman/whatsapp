@@ -9,6 +9,13 @@ const message = document.querySelector(".message");
 const youMessage = document.querySelector(".youMessage");
 
 const messageList=document.querySelector(".messageList");
+
+input.addEventListener("click" ,function(){
+    camera.style.display="none";
+    buttonMicrophone.style.display="none";
+    buttonChevron.style.display="inline";
+})
+
 input.addEventListener("keypress", function (event) {
 
     if (event.key === "Enter") {
