@@ -1,0 +1,144 @@
+*{box-sizing: border-box;
+}
+
+.banner{
+    background-color: #00a884;
+    width:100%; 
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    justify-content: space-between;
+}
+.right-icons{
+    width: 100px;
+    display: flex;
+    justify-content: space-around;
+    margin-right: 15px;
+    opacity: 0.75;
+    color: whitesmoke;
+}
+.name{
+    font-size: 20px;
+    margin-left: 10px;
+    font-weight:600;
+    color: rgb(241, 241, 241);
+
+}
+.mains{
+    min-height:750px;
+    display: flex;
+    
+    margin: 25px;
+}
+body{
+    background-image:url("img/wallpaper.png");
+    
+}
+.foot{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    bottom: 10px;
+}
+.footput{
+    width: 95%;
+    height: 50px;
+    border-radius: 25px;
+    margin-left: 5px;
+    margin-right: 10px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    
+}
+#write{
+    border: 0px;
+    border-radius: 25px;
+    width:85%;
+    height: 50px;
+    text-align: start;
+    padding: 10px;
+    margin-left: 5px;
+}
+.btnm{
+    display: flex;
+    align-items: center;
+    padding: 0px;
+    margin: 0;
+    border: 0px;
+    background-color:transparent;
+}
+.btnc{
+    display: none;
+    align-items: center;
+    padding: 0px;
+    margin: 0;
+    border: 0px;
+    background-color:transparent;
+}
+.chevron{
+    opacity: 0.7;
+    width: 50px;
+    height: 50px;
+    background-color: #00a884;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+    
+    padding-top: 25%;
+}
+
+.microphone{
+    margin-left: 5px;
+    opacity: 0.7;
+    width: 50px;
+    height: 50px;
+    background-color: #00a884;
+    border-radius: 50px;
+    border: 0px;
+    padding-top: 25%;
+}
+.camera{
+    display: inline;
+    margin-left: 30px;
+    
+}
+.paperclip{
+    display: inline;
+}
+.emoji{
+    display: inline;
+    margin-left: 15px;
+    opacity: 0.7;
+}
+
+.textmsg{
+    width: auto;
+    height: auto;
+    border-radius: 25px;
+    background-color: #7aecd3cc;
+    padding:7px 15px;
+    text-decoration: none;
+    list-style: none;
+    display: flex;
+    justify-content: end;
+    align-items: flex-end;
+}
+
+.textumsg{
+    width: auto;
+    height: auto;
+    border-radius: 15px;
+    background-color: #00a884;
+    padding: 5px;
+    text-decoration: none;
+    list-style: none;
+    display: none;
+    display: flex;
+    justify-content: start;
+    align-items: flex-end;
+}
