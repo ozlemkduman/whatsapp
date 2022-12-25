@@ -8,12 +8,19 @@ const main = document.querySelector(".main");
 const message = document.querySelector(".message");
 const youMessage = document.querySelector(".youMessage");
 
+const messageList=document.querySelector(".messageList");
 input.addEventListener("keypress", function (event) {
 
     if (event.key === "Enter") {
         console.log("yapıldı");
-        document.createElement("li");
-        const textMessage=document.getElementsByTagName("li");
-        textMessage.innerHTML = input.value;
+        let textMessageLi=document.createElement("li");
+        messageList.appendChild(textMessageLi);
+        textMessageLi.classList.add("textMessageLiStyle");
+        localStorage.setItem("input",input.value);
+        textMessageLi.innerHTML=input.value;
+        console.log(textMessageLi.innerHTML)
+        messageList.classList.add("messageListStyle");
+        input.value="";
+
     }
 });
