@@ -6,13 +6,17 @@
     width:100%; 
     height: 50px;
     display: flex;
-    align-items: center;
     padding-left: 10px;
     justify-content: space-between;
+}
+.left-icons{
+    display: flex;
+    align-items: center;
 }
 .right-icons{
     width: 100px;
     display: flex;
+    align-items: center;
     justify-content: space-around;
     margin-right: 15px;
     opacity: 0.75;
@@ -25,7 +29,7 @@
     color: rgb(241, 241, 241);
 
 }
-.mains{
+.main{
     min-height:750px;
     display: flex;
     
@@ -42,8 +46,7 @@ body{
     height: 60px;
     bottom: 10px;
 }
-.footput{
-    width: 95%;
+.foot-input{
     height: 50px;
     border-radius: 25px;
     margin-left: 5px;
@@ -51,18 +54,23 @@ body{
     background-color: white;
     display: flex;
     align-items: center;
+    flex-grow: 1;
+    padding-right: 10px;
     
 }
 #write{
-    border: 0px;
+    border-style: hidden;
     border-radius: 25px;
-    width:85%;
-    height: 50px;
+    display: flex;
+    flex-grow: 1;
     text-align: start;
-    padding: 10px;
-    margin-left: 5px;
+    margin:0px 5px;
+    font-size: 22px;
 }
-.btnm{
+#write:focus {
+    outline: none;
+  }
+.buttonMicrophone{
     display: flex;
     align-items: center;
     padding: 0px;
@@ -70,7 +78,7 @@ body{
     border: 0px;
     background-color:transparent;
 }
-.btnc{
+.buttonChevron{
     display: none;
     align-items: center;
     padding: 0px;
@@ -88,7 +96,6 @@ body{
     justify-content: center;
     align-items: center;
     border: 0px;
-    
     padding-top: 25%;
 }
 
@@ -105,7 +112,6 @@ body{
 .camera{
     display: inline;
     margin-left: 30px;
-    
 }
 .paperclip{
     display: inline;
@@ -116,7 +122,7 @@ body{
     opacity: 0.7;
 }
 
-.textmsg{
+.textMessage{
     width: auto;
     height: auto;
     border-radius: 25px;
@@ -129,7 +135,7 @@ body{
     align-items: flex-end;
 }
 
-.textumsg{
+.textYouMessage{
     width: auto;
     height: auto;
     border-radius: 15px;

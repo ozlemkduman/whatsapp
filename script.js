@@ -1,41 +1,19 @@
-let input=document.querySelector("#write");
-let paperclip=document.querySelector(".paperclip");
-let camera= document.querySelector(".camera");
-let btnm=document.querySelector(".btnm");
-let btnc=document.querySelector(".btnc");
-let mains=document.querySelector(".mains");
+const input = document.querySelector("#write");
+const paperclip = document.querySelector(".paperclip");
+const camera = document.querySelector(".camera");
+const buttonMicrophone = document.querySelector(".buttonMicrophone");
+const buttonChevron = document.querySelector(".buttonChevron");
+const main = document.querySelector(".main");
 
-let msg=document.querySelector(".msg");
-let umsg=document.querySelector(".umsg");
+const message = document.querySelector(".message");
+const youMessage = document.querySelector(".youMessage");
 
+input.addEventListener("keypress", function (event) {
 
-
-input.addEventListener("click",hiddenfunc);
-
-
-function hiddenfunc(){
-    btnm.style.display="none";
-    btnc.style.display="inline";
-
-    
-}
-
-btnc.addEventListener("click", gonder);
-
-function gonder(){
-    localStorage.setItem("submit",input.value);
-    
-    textmsg.innerHTML=input.value;
-    input.value="";
-    btnm.style.display="inline";
-    btnc.style.display="none";
-    newmsg();
-    
-}
-
-let textmsg=document.querySelector(".textmsg")
-function newmsg(){
-    let li= document.createElement(li);
-    msg.appendChild(li);
-    text.innerHTML=input.value;
-}
+    if (event.key === "Enter") {
+        console.log("yapıldı");
+        document.createElement("li");
+        const textMessage=document.getElementsByTagName("li");
+        textMessage.innerHTML = input.value;
+    }
+});
