@@ -15,14 +15,7 @@ let youMessageList = document.querySelector(".youMessageList");
 let textLeft=document.querySelector(".textLeft");
 let textRight=document.querySelector(".textRight");
 
-let infoOfPageLeft=localStorage.getItem(itemLeft);
-let infoOfPageRight=localStorage.getItem(itemRight);;
 
-
-
-
-textLeft.innerHTML=infoOfPageLeft;
-textRight.innerHTML=infoOfPageRight;
 
 
 input.addEventListener("click", function () {
@@ -68,7 +61,15 @@ function itemLeft(){
     return itemL;
     
 }
+let infoOfPageLeft=localStorage.getItem("input");
+let infoOfPageRight=localStorage.getItem("input");;
 
+
+console.log(infoOfPageLeft)
+console.log(infoOfPageRight)
+
+textLeft.innerHTML=infoOfPageLeft;
+textRight.innerHTML=infoOfPageRight;
 
 function addMessageOnLeft() {
     itemRight()
@@ -84,6 +85,8 @@ function addMessageOnLeft() {
     messageList.classList.add("messageListStyle");
     input.value = "";
     isLastMessageOnLeft = false;
+
+    
 
 
 }
