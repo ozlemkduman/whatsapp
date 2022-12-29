@@ -17,7 +17,18 @@ let messages;
 
 //sağda mı?
 let wasOnLeft = true;
-let mouseOn = true;
+
+function buttonHidden() {
+  camera.style.display = "none";
+  buttonMicrophone.style.display = "none";
+  buttonChevron.style.display = "inline";
+}
+
+function buttonLook() {
+  camera.style.display = "inline";
+  buttonMicrophone.style.display = "inline";
+  buttonChevron.style.display = "none";
+}
 
 function prepareInput() {
   const input = document.createElement("input");
@@ -25,45 +36,32 @@ function prepareInput() {
   footInput.insertBefore(input, footInput.children[1]);
   input.classList.add("foot-input");
 
+  buttonChevron.addEventListener("click", buttonsend);
   input.addEventListener("keydown", function (e) {
+    buttonHidden();
+
     if (e.key === "Enter") {
-      e.preventDefault();
-      const isOnLeft = wasOnLeft ? false : true;
-
-      const message = {
-        content: e.target.value,
-        isOnLeft,
-      };
-      input.value = "";
-      wasOnLeft = isOnLeft;
-      messages.push(message);
-      saveInput();
-      createAllMessages();
-    }else if(e.key==="Delete"){
-        localStorage.clear("messages");
-        mainDiv.innerHTML="";
+      buttonsend();
     }
   });
-
- 
-  
-
-  input.addEventListener("click", function () {
-    if (mouseOn == true) {
-      camera.style.display = "none";
-      buttonMicrophone.style.display = "none";
-      buttonChevron.style.display = "inline";
-      mouseOn = false;
-    } else {
-      camera.style.display = "inline";
-      buttonMicrophone.style.display = "inline";
-      buttonChevron.style.display = "none";
-      mouseOn = true;
-    }
-  });
-
-  console.log("oldu");
 }
+
+function buttonsend(e) {
+  const input = document.createElement("input");
+  e.preventDefault();
+  const isOnLeft = wasOnLeft ? false : true;
+  const message = {
+    content: e.target.value,
+    isOnLeft,
+  };
+  input.value = "";
+  wasOnLeft = isOnLeft;
+  messages.push(message);
+  saveInput();
+  createAllMessages();
+  buttonLook();
+}
+
 function clearAllMessages() {
   const mainDiv = document.querySelector(".mainDiv");
   mainDiv.innerHTML = "";
@@ -106,12 +104,9 @@ function loadInput() {
   }
 }
 
-
-
 function main() {
   prepareInput();
   loadInput();
   createAllMessages();
-  
 }
 main();
