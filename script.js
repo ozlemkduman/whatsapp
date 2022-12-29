@@ -1,108 +1,117 @@
-const input = document.querySelector("#write");
 const paperclip = document.querySelector(".paperclip");
 const camera = document.querySelector(".camera");
 const buttonMicrophone = document.querySelector(".buttonMicrophone");
 const buttonChevron = document.querySelector(".buttonChevron");
-const main = document.querySelector(".main");
+const mainDiv = document.querySelector(".mainDiv");
 
-const message = document.querySelector(".message");
-let youMessage = document.querySelector(".youMessage");
+const footInput = document.querySelector(".foot-input");
 
-let messageList = document.querySelector(".messageList");
-let youMessageList = document.querySelector(".youMessageList");
+//yeni div oluşturma
+function creatDivElement(content) {
+  let span = document.createElement("span");
+  span.textContent = content;
+  return span;
+}
+//dizi
+let messages;
 
+//sağda mı?
+let wasOnLeft = true;
+let mouseOn = true;
 
-let textLeft=document.querySelector(".textLeft");
-let textRight=document.querySelector(".textRight");
+function prepareInput() {
+  const input = document.createElement("input");
+  document.querySelector(".foot-input").appendChild(input);
+  footInput.insertBefore(input, footInput.children[1]);
+  input.classList.add("foot-input");
 
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const isOnLeft = wasOnLeft ? false : true;
 
-
-
-input.addEventListener("click", function () {
-    camera.style.display = "none";
-    buttonMicrophone.style.display = "none";
-    buttonChevron.style.display = "inline";
-})
-
-let isLastMessageOnLeft = true;
-
-input.addEventListener("keypress", function (event) {
-
-    if (event.key === "Enter") {
-        send()
-
+      const message = {
+        content: e.target.value,
+        isOnLeft,
+      };
+      input.value = "";
+      wasOnLeft = isOnLeft;
+      messages.push(message);
+      saveInput();
+      createAllMessages();
+    }else if(e.key==="Delete"){
+        localStorage.clear("messages");
+        mainDiv.innerHTML="";
     }
-});
+  });
 
-buttonChevron.addEventListener("click", send);
+ 
+  
 
-
-
-
-function send() {
-    if (isLastMessageOnLeft == true) {
-        addMessageOnLeft();
-
+  input.addEventListener("click", function () {
+    if (mouseOn == true) {
+      camera.style.display = "none";
+      buttonMicrophone.style.display = "none";
+      buttonChevron.style.display = "inline";
+      mouseOn = false;
     } else {
-
-        addMessageOnRight();
+      camera.style.display = "inline";
+      buttonMicrophone.style.display = "inline";
+      buttonChevron.style.display = "none";
+      mouseOn = true;
     }
-};
+  });
 
-function itemRight(){
-    let itemR= localStorage.setItem("input",input.value);
-     
-    return itemR;
+  console.log("oldu");
+}
+function clearAllMessages() {
+  const mainDiv = document.querySelector(".mainDiv");
+  mainDiv.innerHTML = "";
 }
 
-function itemLeft(){
-    let itemL= localStorage.setItem("input",input.value);
+function createAllMessages() {
+  clearAllMessages();
 
-    return itemL;
-    
-}
-let infoOfPageLeft=localStorage.getItem("input");
-let infoOfPageRight=localStorage.getItem("input");;
+  for (let message of messages) {
+    const el = creatDivElement(message.content);
 
+    let className = "";
+    if (message.isOnLeft) {
+      className = "textMessageLiStyle";
+    } else {
+      className = "youTextMessageLiStyle";
+    }
 
-console.log(infoOfPageLeft)
-console.log(infoOfPageRight)
+    el.classList.add(className);
 
-textLeft.innerHTML=infoOfPageLeft;
-textRight.innerHTML=infoOfPageRight;
-
-function addMessageOnLeft() {
-    itemRight()
-    let messageList = document.createElement("ul");
-    main.appendChild(messageList);
-    messageList.classList.add("messageListStyle");
-    let textMessageLi = document.createElement("li");
-    textMessageLi.classList.add("textMessageLi")
-    messageList.appendChild(textMessageLi);
-    textMessageLi.classList.add("textMessageLiStyle");
-    textMessageLi.innerHTML = input.value;
-    console.log(itemRight())
-    messageList.classList.add("messageListStyle");
-    input.value = "";
-    isLastMessageOnLeft = false;
-
-    
-
-
+    const mainDiv = document.querySelector(".mainDiv");
+    mainDiv.appendChild(el);
+  }
 }
 
-
-function addMessageOnRight() {
-    itemLeft()
-    let youMessageList = document.createElement("ul");
-    main.appendChild(youMessageList);
-    youMessageList.classList.add("youMessageListStyle");
-    let youTextMessageLi = document.createElement("li");
-    youTextMessageLi.classList.add("youTextMessageLi")
-    youMessageList.appendChild(youTextMessageLi);
-    youTextMessageLi.classList.add("youTextMessageLiStyle");
-    youTextMessageLi.innerHTML = input.value;
-    youMessageList.classList.add("youMessageListStyle");
-    input.value = "";
-    isLastMessageOnLeft = true;
+function saveInput() {
+  const setJson = JSON.stringify(messages);
+  localStorage.setItem("messages", setJson);
 }
+
+function loadInput() {
+  const getLoad = localStorage.getItem("messages");
+
+  const getJson = JSON.parse(getLoad);
+
+  if (Array.isArray(getJson)) {
+    messages = getJson;
+  } else {
+    messages = [];
+  }
+}
+
+
+
+function main() {
+  prepareInput();
+  loadInput();
+  createAllMessages();
+  
+}
+main();
