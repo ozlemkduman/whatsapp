@@ -1,13 +1,15 @@
-hani bi sağa bi sola gitmiyo yazarken
-aynı element i değiştiriyo hep
-enter a basınca da gitsin mesaj, mousela butona tıklamak zorunda olmayim
-//flexbox kullan o kısım için, ikonlara falan width ver pixel olarka, inputu da flex-grow yap
-// div
-//---emoji ikonu
-//---input
-//---microfon ikonu
-//---kamera ikonu
-// div flex olcak
-// inputa da flex-grow: 1 ekliceksin
-// emojilerden kalan alanı kullancak input otomatik olarka
-// textmsg ne oluyo textumsg ne oluyo? daha açıklayıcı isimler kullan
+istenenler
+
+1- enter a basıldığında main'de yazılar gözükecek.
+2- Send butonuna basıldığında main'de yazılar gözükecek.
+3- input sıfırlanacak.
+4- inputa yazı girildiğinde kamera ve mikrofon butonu gizlenecek
+5- sayfa yenilendiğinde eski mesajlar ekranda kalacak.
+
+
+yapılacaklar
+
+1 elementleri tanımlamak
+2 enter ve send butonu için fonksiyon tanımlamak
+3 mesajları saklayıp ekrana getirecek json kodu almak
+4 

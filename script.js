@@ -1,80 +1,95 @@
-const paperclip = document.querySelector(".paperclip");
+const mainDiv = document.querySelector(".mainDiv");
+const inputArea = document.querySelector(".input-area");
+const input = document.querySelector(".input");
 const camera = document.querySelector(".camera");
 const buttonMicrophone = document.querySelector(".buttonMicrophone");
-const buttonChevron = document.querySelector(".buttonChevron");
-const mainDiv = document.querySelector(".mainDiv");
+const buttonSend = document.querySelector(".buttonSend");
 
-const footInput = document.querySelector(".foot-input");
+const buttonDelete = document.querySelector(".delete");
+const buttonInfo = document.querySelector(".info");
 
-//yeni div oluşturma
-function creatDivElement(content) {
-  let span = document.createElement("span");
-  span.textContent = content;
-  return span;
-}
+//infoya tıklarsa delete butonu aktifleştir
+buttonInfo.addEventListener("click", function () {
+  buttonDelete.style.display = "inline";
+});
+
+//delete butonuna tıklarsa ekranı ve locali sil
+buttonDelete.addEventListener("click", function () {
+  mainDiv.innerHTML = "";
+  localStorage.clear();
+  buttonDelete.style.display = "none";
+});
+
 //dizi
-let messages;
+let messages = [];
 
-//sağda mı?
-let wasOnLeft = true;
+//mesaj nerede kontrolü
+let wasOnLeft = false;
 
-function buttonHidden() {
-  camera.style.display = "none";
-  buttonMicrophone.style.display = "none";
-  buttonChevron.style.display = "inline";
-}
-
-function buttonLook() {
-  camera.style.display = "inline";
-  buttonMicrophone.style.display = "inline";
-  buttonChevron.style.display = "none";
-}
-
+//enter basıldığında aksiyon
 function prepareInput() {
-  const input = document.createElement("input");
-  document.querySelector(".foot-input").appendChild(input);
-  footInput.insertBefore(input, footInput.children[1]);
-  input.classList.add("foot-input");
-
-  buttonChevron.addEventListener("click", buttonsend);
   input.addEventListener("keydown", function (e) {
-    buttonHidden();
+    buttonMicrophone.style.display = "none";
+    buttonSend.style.display = "inline";
+    camera.style.display = "none";
 
     if (e.key === "Enter") {
-      buttonsend();
+      send();
     }
   });
+
+  buttonSend.addEventListener("click", send);
 }
 
-function buttonsend(e) {
-  const input = document.createElement("input");
-  e.preventDefault();
-  const isOnLeft = wasOnLeft ? false : true;
-  const message = {
-    content: e.target.value,
-    isOnLeft,
+//mesajları localde kaydet
+function saveInput() {
+  const jsonSet = JSON.stringify(messages);
+  localStorage.setItem("messages", jsonSet);
+}
+
+//enter ve send aksiyonları
+function send() {
+  const isOnleft = wasOnLeft ? false : true;
+
+  //mesaj objesi oluştur
+  let message = {
+    content: input.value,
+    isOnleft,
   };
-  input.value = "";
-  wasOnLeft = isOnLeft;
+
+  //oluşturulan mesajları mesaj dizisine aktar
   messages.push(message);
+
+  wasOnLeft = isOnleft;
   saveInput();
   createAllMessages();
-  buttonLook();
+  //inputu temizle
+  input.value = "";
+  buttonMicrophone.style.display = "inline";
+  buttonSend.style.display = "none";
+  camera.style.display = "inline";
 }
 
-function clearAllMessages() {
-  const mainDiv = document.querySelector(".mainDiv");
-  mainDiv.innerHTML = "";
-}
+//localden kayıtlı mesajları al
+function loadInput() {
+  const messageGet = localStorage.getItem("messages");
+  const jsonGet = JSON.parse(messageGet);
 
+  if (Array.isArray(jsonGet)) {
+    messages = jsonGet;
+  } else {
+    messages = [];
+  }
+}
+//yeni mesaj oluştur
 function createAllMessages() {
   clearAllMessages();
-
+  //dizinin elemanı kadar obje üret
   for (let message of messages) {
-    const el = creatDivElement(message.content);
+    const el = createNewDiv(message.content);
 
     let className = "";
-    if (message.isOnLeft) {
+    if (message.isOnleft) {
       className = "textMessageLiStyle";
     } else {
       className = "youTextMessageLiStyle";
@@ -82,26 +97,19 @@ function createAllMessages() {
 
     el.classList.add(className);
 
-    const mainDiv = document.querySelector(".mainDiv");
     mainDiv.appendChild(el);
   }
 }
-
-function saveInput() {
-  const setJson = JSON.stringify(messages);
-  localStorage.setItem("messages", setJson);
+// tüm mesajları temizle
+function clearAllMessages() {
+  mainDiv.innerHTML = "";
 }
-
-function loadInput() {
-  const getLoad = localStorage.getItem("messages");
-
-  const getJson = JSON.parse(getLoad);
-
-  if (Array.isArray(getJson)) {
-    messages = getJson;
-  } else {
-    messages = [];
-  }
+//yeni div oluştur
+function createNewDiv(content) {
+  const newDiv = document.createElement("div");
+  mainDiv.appendChild(newDiv);
+  newDiv.textContent = content;
+  return newDiv;
 }
 
 function main() {
@@ -109,4 +117,5 @@ function main() {
   loadInput();
   createAllMessages();
 }
+
 main();
