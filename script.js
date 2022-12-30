@@ -17,6 +17,7 @@ buttonInfo.addEventListener("click", function () {
 buttonDelete.addEventListener("click", function () {
   mainDiv.innerHTML = "";
   localStorage.clear();
+  messages = [];
   buttonDelete.style.display = "none";
 });
 
@@ -29,10 +30,16 @@ let wasOnLeft = false;
 //enter basıldığında aksiyon
 function prepareInput() {
   input.addEventListener("keydown", function (e) {
-    buttonMicrophone.style.display = "none";
-    buttonSend.style.display = "inline";
-    camera.style.display = "none";
-
+    if (input.value.length>0) {
+      buttonMicrophone.style.display = "none";
+      buttonSend.style.display = "inline";
+      camera.style.display = "none";
+    } else if(input.value.length==0){
+      buttonMicrophone.style.display = "inline";
+      buttonSend.style.display = "none";
+      camera.style.display = "inline";
+    }
+    console.log(input.value.length)
     if (e.key === "Enter") {
       send();
     }
